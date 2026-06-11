@@ -1,0 +1,29 @@
+{% extends 'build/base.html' %}
+
+{% load static %}
+
+{% block content %}
+    <script>
+        document.addEventListener('DOMContentLoaded', ()=> {
+            document.querySelector('.Non-Veg').src = "https://thumbs.dreamstime.com/b/non-vegetarian-sign-veg-logo-symbol-red-color-written-food-grade-circle-312777265.jpg?w=576"
+           
+        })
+    </script>
+
+    <section id="items">
+        {% for item in items %}
+            <div class="card" style="width:33%; height:auto; margin:10px; padding:20px;">
+                <img src="{{ item.image_url }}" class="card-image-top">
+                <div class="card-body">
+                    <h1 class="card-title">{{ item.name }} <img class="{{ item.category }}" style="height:20px; width:auto;">: {{ item.price }}₹</h1>
+                    <p class="card-text">{{ item.description }}</p> 
+                    <form method="post" name="cart_Add" action="{% url 'add_to_cart' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="item_id" value='{{ item.id }}'>
+                        <input type="submit" value="Add to Cart">
+                    </form>
+                </div>
+            </div>
+        {% endfor %}
+    </section>
+{% endblock %}

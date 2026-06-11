@@ -1,0 +1,67 @@
+{% extends 'build/base.html' %}
+
+{% load static %}
+
+{% block content %}
+ 
+    <section id="items">
+        <!-- <h1>Cart</h1>
+        <div class="container text-center">
+            <div class="row">
+                <div class="col-8">
+                    <h1>Items</h1>
+                </div>
+
+                <div class="col-4">
+                    <h1>Price</h1>
+                </div>
+            </div>
+        </div>
+        <div class="container text-center" style="box-shadow: 5px gray solid;">
+            <div class="card-body">
+            
+                <div class="row">
+                    <div class="col-8">
+                        <h1 style="font-weight:bolder; font-family: 'Times New Roman', Times, serif; text-decoration: dashed underline orange 5px; font-size:20px;">{{ item.name }}</h1>
+                    </div> 
+
+                    <div class="col-4" style="justify-self: end;">
+                       <h1 style="font-weight:bolder; font-family: 'Times New Roman', Times, serif; text-decoration: dashed underline orange 5px; font-size:20px;">{{ item.price }} ₹</h1>
+                    </div>                
+                </div>
+   
+                </div>
+        </div>
+            <h1>Total: {{ total }}₹</h1> -->
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Items</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Total Price</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for cart_item in cart_items %}
+                    <tr>
+                        <td>{{ cart_item.item.name }}</td>
+                        <td>{{ cart_item.item.price }}₹</td>
+                        <td>{{ cart_item.quantity }}</td>
+                        <td>{{ cart_item.subtotal }}</td>
+                        <td> 
+                            <form method="post" action="{% url 'remove_from_cart' %}">
+                                {% csrf_token %}
+                                <input name="cart_item_id" type="hidden" value="{{ cart_item.id }}">
+                                <input class="btn btn-danger" type="submit" value="Remove All From Cart">
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+    </section>
+{% endblock %}

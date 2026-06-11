@@ -1,0 +1,14 @@
+{% extends 'build/base.html' %}
+
+{% load static %}
+
+{% block content %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Submit" class="btn btn-primary">
+    </form>
+
+    <a href="{% url 'register' %}">Don't have an account? Create one here!</a>
+
+{% endblock %}
